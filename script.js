@@ -38,6 +38,16 @@ function updateTimer() {
     const minutes = Math.floor(timeLeft / 60);
     const seconds = timeLeft % 60;
     timerDisplay.textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+    
+    // style container
+    const timerContainer = document.querySelector('.container');
+    if (isWorking) {
+        timerContainer.classList.add('work-mode');
+        timerContainer.classList.remove('rest-mode');
+    } else {
+        timerContainer.classList.add('rest-mode');
+        timerContainer.classList.remove('work-mode');
+    }
 }
 
 function startSetup() {
@@ -45,6 +55,7 @@ function startSetup() {
     timerScreen.classList.remove('hidden');
     resetTimer();
     phaseDisplay.textContent = '1. Set - Get Ready!';
+    document.querySelector('.container').classList.add('rest-mode');
 }
 
 function startTimer() {
@@ -74,7 +85,7 @@ function startTimer() {
 
         // Sounds during initial preparation (14 seconds)
         if (!isWorking && currentRound === 1) {
-            if (timeLeft === 12) { 
+            if (timeLeft === 11) { 
                 playSound(startSound);
             } else if (timeLeft === 2) {
                 playSound(goSound);
@@ -123,7 +134,7 @@ function startTimer() {
 
 function resetTimer() {
     clearInterval(interval);
-    timeLeft = 14; // 14 seconds on reset too
+    timeLeft = 14;
     currentRound = 1;
     isWorking = false;
     isRunning = false;
@@ -131,6 +142,11 @@ function resetTimer() {
     phaseDisplay.textContent = '1. Set - Get Ready!';
     progressBar.style.width = '0%';
     updateTimer();
+    
+    // Reset container styles
+    const timerContainer = document.querySelector('.container');
+    timerContainer.classList.remove('work-mode', 'rest-mode');
+    timerContainer.classList.add('rest-mode');
 }
 
 setupBtn.addEventListener('click', startSetup);
@@ -156,4 +172,19 @@ window.addEventListener('load', () => {
         }
         document.removeEventListener('click', initAudio);
     }, { once: true });
-}); 
+});
+
+// Input validation
+function validateInputs() {
+    const inputs = [workTimeInput, restTimeInput, roundsInput];
+    inputs.forEach(input => {
+        input.addEventListener('input', function() {
+            let value = parseInt(this.value);
+            if (value < 1) this.value = 1;
+            if (value > 999) this.value = 999;
+        });
+    });
+}
+
+// Initialize input validation
+validateInputs(); 

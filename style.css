@@ -1,76 +1,162 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
+:root {
+    --primary-color: #6C63FF;
+    --secondary-color: #FF6B6B;
+    --background-color: #F8F9FE;
+    --text-color: #2D3436;
+    --rest-color: #4CAF50;
+    --work-color: #FF6B6B;
+}
+
 body {
-    font-family: 'Arial', sans-serif;
+    font-family: 'Poppins', sans-serif;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     min-height: 100vh;
     margin: 0;
-    background-color: #f0f0f0;
+    background-color: var(--background-color);
+    color: var(--text-color);
+    position: relative;
+    overflow-x: hidden;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    background: 
+        linear-gradient(135deg, var(--primary-color) 25%, transparent 25%) -50px 0,
+        linear-gradient(225deg, var(--primary-color) 25%, transparent 25%) -50px 0,
+        linear-gradient(315deg, var(--primary-color) 25%, transparent 25%),
+        linear-gradient(45deg, var(--primary-color) 25%, transparent 25%);
+    background-size: 100px 100px;
+    background-color: var(--background-color);
+    opacity: 0.05;
+    animation: patternMove 60s linear infinite;
+}
+
+@keyframes patternMove {
+    from {
+        background-position: 0 0;
+    }
+    to {
+        background-position: 100px 100px;
+    }
 }
 
 .container {
     text-align: center;
-    padding: 20px;
-    background-color: white;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    padding: 2rem;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    max-width: 90%;
+    width: 700px;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.container:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 40px rgba(108, 99, 255, 0.15);
+}
+
+h1 {
+    color: var(--primary-color);
+    margin-bottom: 2rem;
+    font-weight: 600;
 }
 
 .timer {
-    font-size: 72px;
-    margin: 20px 0;
+    font-size: 5rem;
+    margin: 1.5rem 0;
+    font-weight: 600;
+    color: var(--primary-color);
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
 }
 
 .progress-bar {
     width: 100%;
-    height: 10px;
-    background-color: #ddd;
-    border-radius: 5px;
-    margin: 10px 0;
+    height: 12px;
+    background-color: #eee;
+    border-radius: 10px;
+    margin: 1.5rem 0;
     overflow: hidden;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
 }
 
 .progress {
     height: 100%;
-    background-color: #4CAF50;
+    background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
     transition: width 1s linear;
+    border-radius: 10px;
 }
 
 button {
-    padding: 10px 20px;
-    margin: 5px;
-    font-size: 16px;
+    padding: 12px 24px;
+    margin: 8px;
+    font-size: 1rem;
     cursor: pointer;
     border: none;
-    border-radius: 5px;
-    background-color: #4CAF50;
+    border-radius: 50px;
+    background: var(--primary-color);
     color: white;
-    transition: background-color 0.3s;
+    transition: all 0.3s ease;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    box-shadow: 0 4px 15px rgba(108, 99, 255, 0.2);
 }
 
 button:hover {
-    background-color: #45a049;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(108, 99, 255, 0.3);
 }
 
 .phase {
-    font-size: 24px;
-    margin: 10px 0;
-    font-weight: bold;
+    font-size: 1.5rem;
+    margin: 1rem 0;
+    font-weight: 600;
+    color: var(--primary-color);
 }
 
 .settings {
-    margin: 20px 0;
+    margin: 2rem 0;
 }
 
 .settings input {
-    margin: 5px;
-    padding: 5px;
-    width: 100px;
+    margin: 8px;
+    padding: 10px;
+    width: 120px;
+    border: 2px solid #eee;
+    border-radius: 10px;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    text-align: center;
+}
+
+.settings input:focus {
+    border-color: var(--primary-color);
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(108, 99, 255, 0.1);
 }
 
 .settings div {
-    margin: 15px 0;
+    margin: 1rem 0;
+}
+
+.settings label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: var(--text-color);
 }
 
 .hidden {
@@ -78,21 +164,51 @@ button:hover {
 }
 
 .setup-btn {
-    margin-top: 20px;
-    padding: 15px 30px;
-    font-size: 18px;
+    margin-top: 1.5rem;
+    padding: 15px 40px;
+    font-size: 1.2rem;
+    background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
 }
 
-/* Special style for completed message */
 .completed {
-    color: red;
-    font-size: 28px;
+    color: var(--secondary-color);
+    font-size: 2rem;
     font-weight: bold;
     animation: pulse 1s infinite;
 }
 
 @keyframes pulse {
-    0% { transform: scale(1); }
-    50% { transform: scale(1.1); }
-    100% { transform: scale(1); }
+    0% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.1); opacity: 0.8; }
+    100% { transform: scale(1); opacity: 1; }
+}
+
+/* Responsive tasarım için */
+@media (max-width: 600px) {
+    .container {
+        padding: 1rem;
+        width: 95%;
+    }
+
+    .timer {
+        font-size: 3.5rem;
+    }
+
+    .phase {
+        font-size: 1.2rem;
+    }
+
+    button {
+        padding: 10px 20px;
+        font-size: 0.9rem;
+    }
+}
+
+/* Çalışma ve dinlenme modları için farklı renkler */
+.work-mode .progress {
+    background: linear-gradient(45deg, var(--work-color), #ff8f8f);
+}
+
+.rest-mode .progress {
+    background: linear-gradient(45deg, var(--rest-color), #6FCF97);
 } 
